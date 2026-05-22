@@ -88,7 +88,9 @@
 
     <ul class="menu">
         <li><a href="/create-client">Sukurti klientą</a></li>
+        <li><a href="/client-list">Klientų sąrašas</a></li>
         <li><a href="/create-product">Sukurti prekę</a></li>
+        <li><a href="/product-list">Prekių sąrašas</a></li>
         <li><a href="/new-invoice">Nauja sąskaita</a></li>
         <li><a href="/invoice-list">Sąskaitų sąrašas</a></li>
         <li><a href="/pdf-export">PDF eksportas</a></li>
