@@ -1,83 +1,11 @@
 <!DOCTYPE html>
 <html lang="lt">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Admin Panelė</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klientų sąrašas</title>
 
-<style>
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-        font-family: Arial, sans-serif;
-    }
-
-    body{
-        background:#f4f6f9;
-    }
-
-    .sidebar{
-        width:300px;
-        height:100vh;
-        background:#ffffff;
-        box-shadow:0 4px 15px rgba(0,0,0,0.1);
-        position:fixed;
-        left:0;
-        top:0;
-    }
-
-    .sidebar-header{
-        background:#2c3e50;
-        color:white;
-        text-align:center;
-        padding:20px;
-        font-size:22px;
-        font-weight:bold;
-        letter-spacing:1px;
-    }
-
-    .menu{
-        list-style:none;
-        padding:15px;
-    }
-
-    .menu li{
-        margin-bottom:12px;
-    }
-
-    .menu a{
-        display:block;
-        text-decoration:none;
-        background:#f8f9fb;
-        color:#333;
-        padding:14px 16px;
-        border-radius:8px;
-        transition:0.3s;
-        font-size:16px;
-        font-weight:500;
-    }
-
-    .menu a:hover{
-        background:#3498db;
-        color:white;
-        transform:translateX(5px);
-    }
-
-    .content-container{
-        background:#ffffff;
-        margin-left:320px;
-        margin-top:30px;
-        margin-right:30px;
-        padding:30px;
-
-        border-radius:20px;
-
-        box-shadow:0 4px 15px rgba(0,0,0,0.08);
-
-        min-height:calc(100vh - 60px);
-    }
-</style>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
 
@@ -99,6 +27,100 @@
 </div>
 
 <div class="content-container">
+
+    <h1>Nauja sąskaita</h1>
+
+    <form method="POST" action="/new-invoice">
+
+        @csrf
+
+        <div class="form-group">
+
+            <h2 class="section-title">
+                Pasirinkite klientą
+            </h2>
+
+            <select name="client_id" class="invoice-select" required>
+
+                <option value="">
+                    -- Pasirinkti klientą --
+                </option>
+
+                @foreach($clients as $client)
+
+                    <option value="{{ $client->id }}">
+                        {{ $client->company_name }}
+                    </option>
+
+                @endforeach
+
+            </select>
+
+        </div>
+
+        <h2 class="section-title">
+            Prekių pasirinkimas
+        </h2>
+
+        <div class="products-scroll-container">
+
+    <div class="invoice-products">
+
+            @foreach($products as $product)
+
+            <div class="product-card">
+
+                <div class="product-left">
+
+                    <label class="product-checkbox">
+
+                        <input
+                            type="checkbox"
+                            name="products[]"
+                            value="{{ $product->id }}"
+                        >
+
+                        <div>
+
+                            <div class="product-name">
+                                {{ $product->product_name }}
+                            </div>
+
+                            <div class="product-price">
+                                {{ $product->unit_price }} €
+                            </div>
+
+                        </div>
+
+                    </label>
+
+                </div>
+
+                <div class="product-right">
+
+                    <input
+                        type="number"
+                        name="quantities[{{ $product->id }}]"
+                        class="quantity-input"
+                        min="1"
+                        value="1"
+                    >
+
+                </div>
+
+            </div>
+
+            @endforeach
+
+        </div>
+
+    </div>
+
+        <button type="submit" class="generate-btn">
+            Generuoti sąskaitą
+        </button>
+
+    </form>
 
 </div>
 

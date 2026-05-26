@@ -306,3 +306,147 @@ tbody tr:last-child td:last-child{
 .cancel-floating-btn:hover{
     background:#636e72;
 }
+
+/* Invoice */
+
+.invoice-select{
+    width:100%;
+    padding:14px;
+    border:1px solid #dcdfe6;
+    border-radius:12px;
+    font-size:16px;
+    background:white;
+    transition:0.2s;
+}
+
+.invoice-select:focus{
+    outline:none;
+    border-color:#3498db;
+    box-shadow:0 0 0 3px rgba(52,152,219,0.15);
+}
+
+.section-title{
+    margin-top:35px;
+    margin-bottom:20px;
+    color:#2c3e50;
+}
+
+/* Product list */
+
+.invoice-products{
+    display:flex;
+    flex-direction:column;
+    gap:18px;
+}
+
+.product-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:22px;
+    border-radius:16px;
+    background:#f8fafc;
+    border:1px solid #e5e7eb;
+    transition:0.25s;
+}
+
+.product-card:hover{
+    transform:translateY(-2px);
+    box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+.product-left{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.product-checkbox{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    cursor:pointer;
+}
+
+.product-checkbox input{
+    width:20px;
+    height:20px;
+    cursor:pointer;
+}
+
+.product-name{
+    font-size:17px;
+    font-weight:600;
+    color:#2c3e50;
+    margin-bottom:4px;
+}
+
+.product-price{
+    font-size:14px;
+    color:#7f8c8d;
+}
+
+.quantity-input{
+    width:100px;
+    padding:12px;
+    border:1px solid #dcdfe6;
+    border-radius:10px;
+    text-align:center;
+    font-size:15px;
+    background:white !important;
+}
+
+.quantity-input:focus{
+    outline:none;
+    border-color:#3498db;
+}
+
+/* Generate button */
+
+.generate-btn{
+    margin-top:35px;
+    background:linear-gradient(135deg,#3498db,#2980b9);
+    color:white;
+    border:none;
+    padding:16px 28px;
+    border-radius:14px;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.25s;
+    box-shadow:0 6px 18px rgba(52,152,219,0.25);
+}
+
+.generate-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(52,152,219,0.35);
+}
+
+/* Scroll container */
+
+.products-scroll-container{
+    max-height:500px;
+    overflow-y:auto;
+    padding-right:8px;
+    margin-top:10px;
+}
+
+/* Scrollbar */
+
+.products-scroll-container::-webkit-scrollbar{
+    width:10px;
+}
+
+.products-scroll-container::-webkit-scrollbar-track{
+    background:#eef2f7;
+    border-radius:10px;
+}
+
+.products-scroll-container::-webkit-scrollbar-thumb{
+    background:#c5ced8;
+    border-radius:10px;
+}
+
+.products-scroll-container::-webkit-scrollbar-thumb:hover{
+    background:#aeb8c2;
+}

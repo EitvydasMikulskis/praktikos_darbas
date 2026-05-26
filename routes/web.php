@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\InvoiceController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -32,9 +33,9 @@ Route::get('/product-list', [ProductController::class, 'list']);
 Route::put('/product-update/{id}', [ProductController::class, 'update']);
 Route::delete('/product-delete/{id}', [ProductController::class, 'delete']);
 
-Route::get('/new-invoice', function () {
-    return view('new-invoice');
-});
+Route::get('/new-invoice', [InvoiceController::class, 'create']);
+Route::post('/new-invoice', [InvoiceController::class, 'store']);
+Route::get('/invoice/{id}', [InvoiceController::class, 'show']);
 
 Route::get('/invoice-list', function () {
     return view('invoice-list');
