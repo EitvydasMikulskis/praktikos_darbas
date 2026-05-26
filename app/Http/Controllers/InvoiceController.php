@@ -9,6 +9,7 @@ use App\Models\Product;
 use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Seller;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class InvoiceController extends Controller
 {
@@ -96,7 +97,8 @@ class InvoiceController extends Controller
             ]);
         }
 
-        return redirect('/invoice/' . $invoice->id);
+        return redirect('/new-invoice')
+            ->with('success', 'Sąskaita sėkmingai sukurta.');
     }
 
     public function show($id)
@@ -116,4 +118,33 @@ class InvoiceController extends Controller
             'items'
         ));
     }
+
+    public function list()
+    {
+        $invoices = Invoice::latest()->get();
+
+        return view('invoice-list', compact('invoices'));
+    }
+
+    public function pdf($id)
+        {
+            $invoice = Invoice::findOrFail($id);
+
+            $client = Client::find($invoice->client_id);
+
+            $seller = Seller::first();
+
+            $items = InvoiceItem::where('invoice_id', $invoice->id)->get();
+
+            $pdf = Pdf::loadView('invoice-show', compact(
+                'invoice',
+                'client',
+                'seller',
+                'items'
+            ))->setPaper('a4', 'portrait');
+
+            return $pdf->download(
+                $invoice->invoice_number . '.pdf'
+            );
+        }
 }

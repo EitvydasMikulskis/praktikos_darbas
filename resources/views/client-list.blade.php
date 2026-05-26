@@ -79,8 +79,6 @@
         <li><a href="/product-list">Prekių sąrašas</a></li>
         <li><a href="/new-invoice">Nauja sąskaita</a></li>
         <li><a href="/invoice-list">Sąskaitų sąrašas</a></li>
-        <li><a href="/pdf-export">PDF eksportas</a></li>
-        <li><a href="/invoice-send">Siųsti el. paštu</a></li>
     </ul>
 
 </div>

@@ -37,15 +37,6 @@ Route::get('/new-invoice', [InvoiceController::class, 'create']);
 Route::post('/new-invoice', [InvoiceController::class, 'store']);
 Route::get('/invoice/{id}', [InvoiceController::class, 'show']);
 
-Route::get('/invoice-list', function () {
-    return view('invoice-list');
-});
+Route::get('/invoice-list', [InvoiceController::class, 'list']);
 
-Route::get('/pdf-export', function () {
-    return view('pdf-export');
-});
-
-Route::get('/invoice-send', function () {
-    return view('invoice-send');
-});
-
+Route::get('/invoice-pdf/{id}', [InvoiceController::class, 'pdf']);

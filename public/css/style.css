@@ -450,3 +450,29 @@ tbody tr:last-child td:last-child{
 .products-scroll-container::-webkit-scrollbar-thumb:hover{
     background:#aeb8c2;
 }
+
+/* Invoice action icons */
+
+.invoice-action-icons{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.invoice-icon{
+    width:28px;
+    height:28px;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.invoice-icon:hover{
+    transform:scale(1.12);
+}
+
+/* Invoice table action column (Veiksmai stulpelio islyginimas) */
+
+.invoice-actions-column{
+    width:1%;
+    white-space:nowrap;
+}

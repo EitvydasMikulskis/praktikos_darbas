@@ -20,158 +20,229 @@ $amountWords = $numberTransformer->toWords($amount);
     <meta charset="UTF-8">
     <title>Sąskaita faktūra</title>
 
-    <style>
+<style>
 
-        body{
-    background:#e5e5e5;
-    margin:0;
-    padding:40px;
-    font-family:"Times New Roman", serif;
-}
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+    }
 
-.invoice-sheet{
-    background:white;
-    width:900px;
-    margin:auto;
-    padding:50px;
-    box-shadow:0 0 20px rgba(0,0,0,0.08);
-}
-
-/* Title */
-
-.invoice-title{
-    text-align:center;
-    font-size:28px;
-    font-weight:bold;
-    margin-bottom:10px;
-    letter-spacing:1px;
-}
-
-.invoice-number{
-    text-align:center;
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:10px;
-}
-
-.invoice-date{
-    text-align:center;
-    margin-bottom:50px;
-    font-size:15px;
-    color:#444;
-}
-
-/* Parties */
-
-.invoice-parties{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:50px;
-    gap:40px;
-}
-
-.party-block{
-    width:50%;
-}
-
-.party-title{
-    font-size:20px;
-    font-weight:bold;
-    margin-bottom:18px;
-    border-bottom:1px solid #ccc;
-    padding-bottom:8px;
-}
-
-.party-row{
-    margin-bottom:10px;
-    font-size:15px;
-    line-height:1.5;
-}
-
-/* Table */
-
-table{
-    width:100%;
-    border-collapse:collapse;
-    margin-top:30px;
-}
-
-th,
-td{
-    border:1px solid #000;
-    padding:12px;
-    text-align:center;
-    font-size:14px;
-}
-
-th{
-    background:#f5f5f5;
-    font-weight:bold;
-}
-
-/* Totals */
-
-.totals{
-    margin-top:40px;
-    width:350px;
-    margin-left:auto;
-}
-
-.totals-row{
-    display:flex;
-    justify-content:space-between;
-    margin-bottom:12px;
-    font-size:17px;
-}
-
-.totals-row strong{
-    font-weight:bold;
-}
-
-/* Sum in words */
-
-.sum-words{
-    margin-top:50px;
-    font-size:16px;
-    line-height:1.6;
-}
-
-/* Signatures */
-
-.signature-section{
-    margin-top:90px;
-}
-
-.signature-row{
-    margin-bottom:50px;
-    font-size:16px;
-}
-
-.signature-line{
-    display:inline-block;
-    width:300px;
-    border-bottom:1px solid black;
-    margin-left:20px;
-    transform:translateY(-5px);
-}
-
-/* Print */
-
-@media print{
+    html,
+    body{
+        width:100%;
+        background:white;
+        font-family: DejaVu Sans, sans-serif;
+        color:#000;
+    }
 
     body{
-        background:white;
         padding:0;
     }
 
+    /* A4 sheet */
+
     .invoice-sheet{
-        box-shadow:none;
-        width:100%;
-        padding:20px;
+
+        width:190mm;
+
+        margin:0 auto;
+
+        background:white;
+
+        padding:15mm;
+
+        box-sizing:border-box;
     }
 
-}
-    </style>
+    /* Header */
+
+    .invoice-title{
+        text-align:center;
+        font-size:22px;
+        font-weight:bold;
+        margin-bottom:8px;
+    }
+
+    .invoice-number{
+        text-align:center;
+        font-size:16px;
+        font-weight:bold;
+        margin-bottom:8px;
+    }
+
+    .invoice-date{
+        text-align:center;
+        font-size:13px;
+        margin-bottom:40px;
+    }
+
+    /* Seller / Buyer */
+
+    .invoice-parties{
+        display:table;
+        width:100%;
+        table-layout:fixed;
+        margin-bottom:35px;
+    }
+
+    .party-block{
+        display:table-cell;
+        width:50%;
+        vertical-align:top;
+    }
+
+    .seller-block{
+        padding-right:30px;
+    }
+
+    .buyer-block{
+        padding-left:30px;
+    }
+
+    .party-title{
+        font-size:12px;
+        font-weight:bold;
+        margin-bottom:10px;
+        padding-bottom:4px;
+        border-bottom:1px solid #999;
+    }
+
+    .party-row{
+        font-size:10px;
+        margin-bottom:5px;
+        line-height:1.4;
+    }
+
+    /* Table */
+
+    table{
+        width:100%;
+        border-collapse:collapse;
+        table-layout:fixed;
+        margin-top:20px;
+    }
+
+    th,
+    td{
+        border:1px solid #000;
+        padding:6px;
+        font-size:12px;
+        text-align:center;
+        overflow:hidden;
+        word-wrap:break-word;
+    }
+
+    th{
+        background:#f2f2f2;
+        font-weight:bold;
+    }
+
+    /* Column widths */
+
+    th:nth-child(1),
+    td:nth-child(1){
+        width:8%;
+    }
+
+    th:nth-child(2),
+    td:nth-child(2){
+        width:40%;
+    }
+
+    th:nth-child(3),
+    td:nth-child(3){
+        width:16%;
+    }
+
+    th:nth-child(4),
+    td:nth-child(4){
+        width:18%;
+    }
+
+    th:nth-child(5),
+    td:nth-child(5){
+        width:18%;
+    }
+
+    /* Totals */
+
+    .totals{
+        width:260px;
+        margin-left:auto;
+        margin-top:25px;
+        margin-right:0;
+    }
+
+    .totals-row{
+        overflow:hidden;
+        margin-bottom:8px;
+        font-size:13px;
+    }
+
+    .totals-label{
+        float:left;
+        font-weight:bold;
+    }
+
+    .totals-value{
+        float:right;
+    }
+
+    /* Sum words */
+
+    .sum-words{
+        margin-top:40px;
+        font-size:13px;
+        line-height:1.6;
+    }
+
+    /* Signatures */
+
+    .signature-section{
+        display:table;
+        width:100%;
+        table-layout:fixed;
+        margin-top:80px;
+    }
+
+    .signature-row{
+        display:table-cell;
+        width:50%;
+        vertical-align:top;
+        font-size:13px;
+    }
+
+    .signature-line{
+        display:inline-block;
+        width:220px;
+        border-bottom:1px solid #000;
+        margin-left:12px;
+    }
+
+    /* Print */
+
+    @page{
+        size:A4;
+        margin:10mm;
+    }
+
+    @media print{
+
+        html,
+        body{
+            background:white;
+        }
+
+        .invoice-sheet{
+            width:100%;
+            margin:0;
+            padding:0;
+        }
+
+    }
+
+</style>
 
 </head>
 <body>
