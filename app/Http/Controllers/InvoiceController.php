@@ -26,19 +26,23 @@ class InvoiceController extends Controller
     {
         $selectedProducts = $request->products;
 
+        if(!$selectedProducts)
+        {
+            return redirect()
+                ->back()
+                ->with('error', 'Pasirinkite bent vieną prekę.');
+        }
+
         $totalWithoutVat = 0;
 
         foreach($selectedProducts as $productId)
         {
             $product = Product::find($productId);
-
             $quantity = $request->quantities[$productId];
-
             $totalWithoutVat += $product->unit_price * $quantity;
         }
 
         $vatAmount = $totalWithoutVat * 0.21;
-
         $totalWithVat = $totalWithoutVat + $vatAmount;
 
         /* Invoice number */
@@ -48,7 +52,6 @@ class InvoiceController extends Controller
         if($lastInvoice)
         {
             $lastNumber = (int) substr($lastInvoice->invoice_number, 4);
-
             $newNumber = $lastNumber + 1;
         }
         else
@@ -63,13 +66,9 @@ class InvoiceController extends Controller
         $invoice = Invoice::create([
 
             'client_id' => $request->client_id,
-
             'invoice_number' => $invoiceNumber,
-
             'total_without_vat' => $totalWithoutVat,
-
             'vat_amount' => $vatAmount,
-
             'total_with_vat' => $totalWithVat
         ]);
 
@@ -78,21 +77,15 @@ class InvoiceController extends Controller
         foreach($selectedProducts as $productId)
         {
             $product = Product::find($productId);
-
             $quantity = $request->quantities[$productId];
-
             $total = $product->unit_price * $quantity;
 
             InvoiceItem::create([
 
                 'invoice_id' => $invoice->id,
-
                 'product_id' => $product->id,
-
                 'quantity' => $quantity,
-
                 'price' => $product->unit_price,
-
                 'total' => $total
             ]);
         }
@@ -104,11 +97,8 @@ class InvoiceController extends Controller
     public function show($id)
     {
         $invoice = Invoice::findOrFail($id);
-
         $client = Client::find($invoice->client_id);
-
         $seller = Seller::first();
-
         $items = InvoiceItem::where('invoice_id', $invoice->id)->get();
 
         return view('invoice-show', compact(

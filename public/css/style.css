@@ -6,7 +6,7 @@
 }
 
 body{
-    background:#f4f6f9;
+    background:#e2e2e2;
 }
 
 /* Sidebar */
@@ -43,7 +43,7 @@ body{
 .menu a{
     display:block;
     text-decoration:none;
-    background:#f8f9fb;
+    background:#e2e2e2;
     color:#333;
     padding:14px 16px;
     border-radius:8px;
