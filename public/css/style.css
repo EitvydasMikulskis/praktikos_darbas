@@ -6,7 +6,7 @@
 }
 
 body{
-    background:#e2e2e2;
+    background:#f4f6f9;
 }
 
 /* Sidebar */
@@ -43,7 +43,7 @@ body{
 .menu a{
     display:block;
     text-decoration:none;
-    background:#e2e2e2;
+    background:#f8f9fb;
     color:#333;
     padding:14px 16px;
     border-radius:8px;
@@ -348,11 +348,6 @@ tbody tr:last-child td:last-child{
     background:#f8fafc;
     border:1px solid #e5e7eb;
     transition:0.25s;
-}
-
-.product-card:hover{
-    transform:translateY(-2px);
-    box-shadow:0 6px 18px rgba(0,0,0,0.08);
 }
 
 .product-left{

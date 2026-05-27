@@ -28,6 +28,21 @@
 
     <h1>Nauja sąskaita</h1>
 
+        @if(session('error'))
+
+            <div class="error">
+                {{ session('error') }}
+            </div>
+
+        @endif
+        @if(session()->has('success'))
+
+            <div class="success">
+                {{ session()->get('success') }}
+            </div>
+
+        @endif
+
     <form method="POST" action="/new-invoice">
 
         @csrf

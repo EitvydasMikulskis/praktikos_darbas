@@ -90,7 +90,7 @@ class InvoiceController extends Controller
             ]);
         }
 
-        return redirect('/new-invoice')
+        return redirect()->back()
             ->with('success', 'Sąskaita sėkmingai sukurta.');
     }
 
