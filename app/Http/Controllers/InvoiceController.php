@@ -42,7 +42,21 @@ class InvoiceController extends Controller
             $totalWithoutVat += $product->unit_price * $quantity;
         }
 
-        $vatAmount = $totalWithoutVat * 0.21;
+        $vatAmount = 0;
+
+        foreach($selectedProducts as $productId)
+        {
+            $product = Product::find($productId);
+
+            $quantity = $request->quantities[$productId];
+
+            $vatPercent = $request->vat[$productId];
+
+            $lineTotal = $product->unit_price * $quantity;
+
+            $vatAmount += $lineTotal * ($vatPercent / 100);
+        }
+
         $totalWithVat = $totalWithoutVat + $vatAmount;
 
         /* Invoice number */
@@ -86,7 +100,8 @@ class InvoiceController extends Controller
                 'product_id' => $product->id,
                 'quantity' => $quantity,
                 'price' => $product->unit_price,
-                'total' => $total
+                'total' => $total,
+                'vat_percent' => $request->vat[$productId]
             ]);
         }
 

@@ -140,30 +140,12 @@ $amountWords = $numberTransformer->toWords($amount);
 
     /* Column widths */
 
-    th:nth-child(1),
-    td:nth-child(1){
-        width:8%;
-    }
-
-    th:nth-child(2),
-    td:nth-child(2){
-        width:40%;
-    }
-
-    th:nth-child(3),
-    td:nth-child(3){
-        width:16%;
-    }
-
-    th:nth-child(4),
-    td:nth-child(4){
-        width:18%;
-    }
-
-    th:nth-child(5),
-    td:nth-child(5){
-        width:18%;
-    }
+    th:nth-child(1), td:nth-child(1){ width:6%; }
+    th:nth-child(2), td:nth-child(2){ width:34%; }
+    th:nth-child(3), td:nth-child(3){ width:12%; }
+    th:nth-child(4), td:nth-child(4){ width:14%; }
+    th:nth-child(5), td:nth-child(5){ width:12%; }
+    th:nth-child(6), td:nth-child(6){ width:22%; }
 
     /* Totals */
 
@@ -335,6 +317,7 @@ $amountWords = $numberTransformer->toWords($amount);
                 <th>Pavadinimas</th>
                 <th>Kiekis</th>
                 <th>Kaina</th>
+                <th>PVM</th>
                 <th>Suma</th>
             </tr>
 
@@ -354,11 +337,13 @@ $amountWords = $numberTransformer->toWords($amount);
 
                 <td>{{ $product->product_name }}</td>
 
-                <td>{{ $item->quantity }}</td>
+                <td>{{ $item->quantity }} {{ $product->measurement_unit }}</td>
 
                 <td>{{ number_format($item->price, 2) }} €</td>
 
-                <td>{{ number_format($item->total, 2) }} €</td>
+                <td>{{ $item->vat_percent }}%</td>
+
+                <td>{{ number_format($item->total * (1 + $item->vat_percent / 100), 2) }} €</td>
 
             </tr>
 

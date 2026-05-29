@@ -109,17 +109,26 @@
 
                 </div>
 
-                <div class="product-right">
+                    <div class="product-right">
 
-                    <input
-                        type="number"
-                        name="quantities[{{ $product->id }}]"
-                        class="quantity-input"
-                        min="1"
-                        value="1"
-                    >
+                        <input
+                            type="number"
+                            name="quantities[{{ $product->id }}]"
+                            class="quantity-input"
+                            min="1"
+                            value="1"
+                        >
 
-                </div>
+                        <input
+                            type="number"
+                            name="vat[{{ $product->id }}]"
+                            class="vat-input"
+                            min="0"
+                            step="1"
+                            value="21"
+                        >
+
+                    </div>
 
             </div>
 
