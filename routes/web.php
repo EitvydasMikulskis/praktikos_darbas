@@ -40,3 +40,4 @@ Route::get('/invoice/{id}', [InvoiceController::class, 'show']);
 Route::get('/invoice-list', [InvoiceController::class, 'list']);
 
 Route::get('/invoice-pdf/{id}', [InvoiceController::class, 'pdf']);
+Route::post('/invoice-send/{id}', [InvoiceController::class, 'sendEmail']);

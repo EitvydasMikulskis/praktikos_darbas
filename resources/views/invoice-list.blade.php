@@ -7,6 +7,26 @@
 
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
+
+<script>
+    function toggleMailForm(invoiceId)
+    {
+        let row =
+            document.getElementById(
+                'mail-row-' + invoiceId
+            );
+
+        if(row.style.display === 'none')
+        {
+            row.style.display = 'table-row';
+        }
+        else
+        {
+            row.style.display = 'none';
+        }
+    }
+</script>
+
 <body>
 
 <div class="sidebar">
@@ -91,7 +111,8 @@
 
                         </a>
 
-                        <a href="#">
+                        <a href="javascript:void(0)"
+                        onclick="toggleMailForm({{ $invoice->id }})">
 
                             <img
                                 src="{{ asset('images/mail.png') }}"
@@ -102,6 +123,55 @@
                         </a>
 
                     </div>
+
+                </td>
+
+            </tr>
+            <tr
+                id="mail-row-{{ $invoice->id }}"
+                class="mail-row"
+                style="display:none;"
+            >
+
+                <td colspan="6">
+
+                    <form
+                        method="POST"
+                        action="/invoice-send/{{ $invoice->id }}"
+                        class="mail-form"
+                    >
+
+                        @csrf
+
+                        <div class="mail-field">
+
+                            <label>El. pašto adresas</label>
+
+                            <input
+                                type="email"
+                                name="email"
+                                class="mail-input"
+                                required
+                            >
+
+                        </div>
+
+                        <div class="mail-field">
+
+                            <label>Papildoma informacija</label>
+
+                            <textarea
+                                name="message"
+                                class="mail-textarea"
+                            ></textarea>
+
+                        </div>
+
+                        <button type="submit" class="generate-btn">
+                            Siųsti
+                        </button>
+
+                    </form>
 
                 </td>
 

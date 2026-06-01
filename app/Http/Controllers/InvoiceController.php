@@ -10,6 +10,7 @@ use App\Models\Invoice;
 use App\Models\InvoiceItem;
 use App\Models\Seller;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Facades\Mail;
 
 class InvoiceController extends Controller
 {
@@ -151,5 +152,43 @@ class InvoiceController extends Controller
             return $pdf->download(
                 $invoice->invoice_number . '.pdf'
             );
+        }
+
+    public function sendEmail(Request $request, $id)
+        {
+            $request->validate([
+                'email' => 'required|email',
+            ]);
+
+            $invoice = Invoice::findOrFail($id);
+            $client = Client::find($invoice->client_id);
+            $seller = Seller::first();
+            $items = InvoiceItem::where('invoice_id', $invoice->id)->get();
+
+            $pdf = Pdf::loadView('invoice-show', compact(
+                'invoice',
+                'client',
+                'seller',
+                'items'
+            ))->setPaper('a4', 'portrait');
+
+            Mail::raw(
+                $request->message ?? 'Pridedama PVM sąskaita-faktūra.',
+                function($mail) use ($request, $invoice, $pdf)
+                {
+                    $mail->to($request->email)
+                        ->subject('PVM sąskaita-faktūra ' . $invoice->invoice_number)
+                        ->attachData(
+                            $pdf->output(),
+                            $invoice->invoice_number . '.pdf',
+                            [
+                                'mime' => 'application/pdf',
+                            ]
+                        );
+                }
+            );
+
+            return redirect('/invoice-list')
+                ->with('success', 'Sąskaita sėkmingai išsiųsta el. paštu.');
         }
 }

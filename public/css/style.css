@@ -492,3 +492,34 @@ tbody tr:last-child td:last-child{
     outline:none;
     border-color:#3498db;
 }
+
+.mail-row td{
+    background:#f8f9fb !important;
+    padding:20px;
+}
+
+.mail-form{
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+}
+
+.mail-field{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.mail-input,
+.mail-textarea{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:10px;
+    font-size:14px;
+}
+
+.mail-textarea{
+    min-height:120px;
+    resize:vertical;
+}
