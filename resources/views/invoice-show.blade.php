@@ -1,230 +1,185 @@
-@php
-
-use NumberToWords\NumberToWords;
-
-$numberToWords = new NumberToWords();
-
-$numberTransformer = $numberToWords->getNumberTransformer('lt');
-
-$amount = floor($invoice->total_with_vat);
-
-$cents = round(($invoice->total_with_vat - $amount) * 100);
-
-$amountWords = $numberTransformer->toWords($amount);
-
-@endphp
-
 <!DOCTYPE html>
 <html lang="lt">
 <head>
     <meta charset="UTF-8">
     <title>Sąskaita faktūra</title>
-
-<style>
-
-    *{
-        margin:0;
-        padding:0;
-        box-sizing:border-box;
-    }
-
-    html,
-    body{
-        width:100%;
-        background:white;
-        font-family: DejaVu Sans, sans-serif;
-        color:#000;
-    }
-
-    body{
-        padding:0;
-    }
-
-    /* A4 sheet */
-
-    .invoice-sheet{
-
-        width:190mm;
-
-        margin:0 auto;
-
-        background:white;
-
-        padding:15mm;
-
-        box-sizing:border-box;
-    }
-
-    /* Header */
-
-    .invoice-title{
-        text-align:center;
-        font-size:22px;
-        font-weight:bold;
-        margin-bottom:8px;
-    }
-
-    .invoice-number{
-        text-align:center;
-        font-size:16px;
-        font-weight:bold;
-        margin-bottom:8px;
-    }
-
-    .invoice-date{
-        text-align:center;
-        font-size:13px;
-        margin-bottom:40px;
-    }
-
-    /* Seller / Buyer */
-
-    .invoice-parties{
-        display:table;
-        width:100%;
-        table-layout:fixed;
-        margin-bottom:35px;
-    }
-
-    .party-block{
-        display:table-cell;
-        width:50%;
-        vertical-align:top;
-    }
-
-    .seller-block{
-        padding-right:30px;
-    }
-
-    .buyer-block{
-        padding-left:30px;
-    }
-
-    .party-title{
-        font-size:12px;
-        font-weight:bold;
-        margin-bottom:10px;
-        padding-bottom:4px;
-        border-bottom:1px solid #999;
-    }
-
-    .party-row{
-        font-size:10px;
-        margin-bottom:5px;
-        line-height:1.4;
-    }
-
-    /* Table */
-
-    table{
-        width:100%;
-        border-collapse:collapse;
-        table-layout:fixed;
-        margin-top:20px;
-    }
-
-    th,
-    td{
-        border:1px solid #000;
-        padding:6px;
-        font-size:12px;
-        text-align:center;
-        overflow:hidden;
-        word-wrap:break-word;
-    }
-
-    th{
-        background:#f2f2f2;
-        font-weight:bold;
-    }
-
-    /* Column widths */
-
-    th:nth-child(1), td:nth-child(1){ width:6%; }
-    th:nth-child(2), td:nth-child(2){ width:34%; }
-    th:nth-child(3), td:nth-child(3){ width:12%; }
-    th:nth-child(4), td:nth-child(4){ width:14%; }
-    th:nth-child(5), td:nth-child(5){ width:12%; }
-    th:nth-child(6), td:nth-child(6){ width:22%; }
-
-    /* Totals */
-
-    .totals{
-        width:260px;
-        margin-left:auto;
-        margin-top:25px;
-        margin-right:0;
-    }
-
-    .totals-row{
-        overflow:hidden;
-        margin-bottom:8px;
-        font-size:13px;
-    }
-
-    .totals-label{
-        float:left;
-        font-weight:bold;
-    }
-
-    .totals-value{
-        float:right;
-    }
-
-    /* Sum words */
-
-    .sum-words{
-        margin-top:40px;
-        font-size:13px;
-        line-height:1.6;
-    }
-
-    /* Signatures */
-
-    .signature-section{
-        display:table;
-        width:100%;
-        table-layout:fixed;
-        margin-top:80px;
-    }
-
-    .signature-row{
-        display:table-cell;
-        width:50%;
-        vertical-align:top;
-        font-size:13px;
-    }
-
-    .signature-line{
-        display:inline-block;
-        width:220px;
-        border-bottom:1px solid #000;
-        margin-left:12px;
-    }
-
-    /* Print */
-
-    @page{
-        size:A4;
-        margin:10mm;
-    }
-
-    @media print{
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
         html,
         body{
+            width:100%;
             background:white;
+            font-family: DejaVu Sans, sans-serif;
+            color:#000;
         }
 
-        .invoice-sheet{
-            width:100%;
-            margin:0;
+        body{
             padding:0;
         }
 
-    }
+        .invoice-sheet{
+            width:190mm;
+            margin:0 auto;
+            background:white;
+            padding:15mm;
+            box-sizing:border-box;
+        }
 
-</style>
+        .invoice-title{
+            text-align:center;
+            font-size:22px;
+            font-weight:bold;
+            margin-bottom:8px;
+        }
+
+        .invoice-number{
+            text-align:center;
+            font-size:16px;
+            font-weight:bold;
+            margin-bottom:8px;
+        }
+
+        .invoice-date{
+            text-align:center;
+            font-size:13px;
+            margin-bottom:40px;
+        }
+
+        .invoice-parties{
+            display:table;
+            width:100%;
+            table-layout:fixed;
+            margin-bottom:35px;
+        }
+
+        .party-block{
+            display:table-cell;
+            width:50%;
+            vertical-align:top;
+        }
+
+        .seller-block{
+            padding-right:30px;
+        }
+
+        .buyer-block{
+            padding-left:30px;
+        }
+
+        .party-title{
+            font-size:12px;
+            font-weight:bold;
+            margin-bottom:10px;
+            padding-bottom:4px;
+            border-bottom:1px solid #999;
+        }
+
+        .party-row{
+            font-size:10px;
+            margin-bottom:5px;
+            line-height:1.4;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+            table-layout:fixed;
+            margin-top:20px;
+        }
+
+        th,
+        td{
+            border:1px solid #000;
+            padding:6px;
+            font-size:12px;
+            text-align:center;
+            overflow:hidden;
+            word-wrap:break-word;
+        }
+
+        th{
+            background:#f2f2f2;
+            font-weight:bold;
+        }
+
+        th:nth-child(1), td:nth-child(1){ width:6%; }
+        th:nth-child(2), td:nth-child(2){ width:34%; }
+        th:nth-child(3), td:nth-child(3){ width:12%; }
+        th:nth-child(4), td:nth-child(4){ width:14%; }
+        th:nth-child(5), td:nth-child(5){ width:12%; }
+        th:nth-child(6), td:nth-child(6){ width:22%; }
+
+        .totals{
+            width:260px;
+            margin-left:auto;
+            margin-top:25px;
+            margin-right:0;
+        }
+
+        .totals-row{
+            overflow:hidden;
+            margin-bottom:8px;
+            font-size:13px;
+        }
+
+        .totals-label{
+            float:left;
+            font-weight:bold;
+        }
+
+        .totals-value{
+            float:right;
+        }
+
+        .sum-words{
+            margin-top:40px;
+            font-size:13px;
+            line-height:1.6;
+        }
+
+        .signature-section{
+            display:table;
+            width:100%;
+            table-layout:fixed;
+            margin-top:80px;
+        }
+
+        .signature-row{
+            display:table-cell;
+            width:50%;
+            vertical-align:top;
+            font-size:13px;
+        }
+
+        .signature-line{
+            display:inline-block;
+            width:220px;
+            border-bottom:1px solid #000;
+            margin-left:12px;
+        }
+
+        @page{
+            size:A4;
+            margin:10mm;
+        }
+
+        @media print{
+            html,
+            body{
+                background:white;
+            }
+            .invoice-sheet{
+                width:100%;
+                margin:0;
+                padding:0;
+            }
+        }
+    </style>
 
 </head>
 <body>

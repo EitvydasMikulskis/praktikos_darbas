@@ -21,6 +21,7 @@
         <li><a href="/product-list">Prekių sąrašas</a></li>
         <li><a href="/new-invoice">Nauja sąskaita</a></li>
         <li><a href="/invoice-list">Sąskaitų sąrašas</a></li>
+        <li><a href="/invoice-summary">Sąskaitų suvestinė</a></li>
     </ul>
 </div>
 

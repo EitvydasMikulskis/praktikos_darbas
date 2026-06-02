@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sąskaitų sąrašas</title>
-
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
@@ -29,161 +28,160 @@
 
 <body>
 
-<div class="sidebar">
+    <div class="sidebar">
 
-    <div class="sidebar-header">
-        PVM SĄSKAITOS-FAKTŪROS
+        <div class="sidebar-header">
+            PVM SĄSKAITOS-FAKTŪROS
+        </div>
+
+        <ul class="menu">
+            <li><a href="/create-client">Sukurti klientą</a></li>
+            <li><a href="/client-list">Klientų sąrašas</a></li>
+            <li><a href="/create-product">Sukurti prekę</a></li>
+            <li><a href="/product-list">Prekių sąrašas</a></li>
+            <li><a href="/new-invoice">Nauja sąskaita</a></li>
+            <li><a href="/invoice-list">Sąskaitų sąrašas</a></li>
+            <li><a href="/invoice-summary">Sąskaitų suvestinė</a></li>
+        </ul>
+
     </div>
 
-    <ul class="menu">
-        <li><a href="/create-client">Sukurti klientą</a></li>
-        <li><a href="/client-list">Klientų sąrašas</a></li>
-        <li><a href="/create-product">Sukurti prekę</a></li>
-        <li><a href="/product-list">Prekių sąrašas</a></li>
-        <li><a href="/new-invoice">Nauja sąskaita</a></li>
-        <li><a href="/invoice-list">Sąskaitų sąrašas</a></li>
-    </ul>
+    <div class="content-container">
 
-</div>
+        <h1>Sąskaitų sąrašas</h1>
 
-<div class="content-container">
+        <table>
 
-    <h1>Sąskaitų sąrašas</h1>
+            <thead>
 
-    <table>
+                <tr>
+                    <th>ID</th>
+                    <th>Sąskaitos numeris</th>
+                    <th>Klientas</th>
+                    <th>Suma su PVM</th>
+                    <th>Data</th>
+                    <th class="invoice-actions-column">
+                        Veiksmai
+                    </th>
+                </tr>
 
-        <thead>
+            </thead>
 
-            <tr>
-                <th>ID</th>
-                <th>Sąskaitos numeris</th>
-                <th>Klientas</th>
-                <th>Suma su PVM</th>
-                <th>Data</th>
-                <th class="invoice-actions-column">
-                    Veiksmai
-                </th>
-            </tr>
+            <tbody>
 
-        </thead>
+                @foreach($invoices as $invoice)
 
-        <tbody>
+                @php
+                    $client = \App\Models\Client::find($invoice->client_id);
+                @endphp
 
-            @foreach($invoices as $invoice)
+                <tr>
 
-            @php
-                $client = \App\Models\Client::find($invoice->client_id);
-            @endphp
+                    <td>{{ $invoice->id }}</td>
 
-            <tr>
+                    <td>{{ $invoice->invoice_number }}</td>
 
-                <td>{{ $invoice->id }}</td>
+                    <td>{{ $client->company_name }}</td>
 
-                <td>{{ $invoice->invoice_number }}</td>
+                    <td>{{ number_format($invoice->total_with_vat, 2) }} €</td>
 
-                <td>{{ $client->company_name }}</td>
+                    <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
 
-                <td>{{ number_format($invoice->total_with_vat, 2) }} €</td>
+                    <td class="invoice-actions-column">
+                        <div class="invoice-action-icons">
 
-                <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
+                            <a href="/invoice/{{ $invoice->id }}">
 
-                <td class="invoice-actions-column">
+                                <img
+                                    src="{{ asset('images/view.png') }}"
+                                    alt="view"
+                                    class="invoice-icon"
+                                >
 
-                    <div class="invoice-action-icons">
+                            </a>
 
-                        <a href="/invoice/{{ $invoice->id }}">
+                            <a href="/invoice-pdf/{{ $invoice->id }}">
 
-                            <img
-                                src="{{ asset('images/view.png') }}"
-                                alt="view"
-                                class="invoice-icon"
-                            >
+                                <img
+                                    src="{{ asset('images/pdf.png') }}"
+                                    alt="pdf"
+                                    class="invoice-icon"
+                                >
 
-                        </a>
+                            </a>
 
-                        <a href="/invoice-pdf/{{ $invoice->id }}">
+                            <a href="javascript:void(0)"
+                            onclick="toggleMailForm({{ $invoice->id }})">
 
-                            <img
-                                src="{{ asset('images/pdf.png') }}"
-                                alt="pdf"
-                                class="invoice-icon"
-                            >
+                                <img
+                                    src="{{ asset('images/mail.png') }}"
+                                    alt="mail"
+                                    class="invoice-icon"
+                                >
 
-                        </a>
-
-                        <a href="javascript:void(0)"
-                        onclick="toggleMailForm({{ $invoice->id }})">
-
-                            <img
-                                src="{{ asset('images/mail.png') }}"
-                                alt="mail"
-                                class="invoice-icon"
-                            >
-
-                        </a>
-
-                    </div>
-
-                </td>
-
-            </tr>
-            <tr
-                id="mail-row-{{ $invoice->id }}"
-                class="mail-row"
-                style="display:none;"
-            >
-
-                <td colspan="6">
-
-                    <form
-                        method="POST"
-                        action="/invoice-send/{{ $invoice->id }}"
-                        class="mail-form"
-                    >
-
-                        @csrf
-
-                        <div class="mail-field">
-
-                            <label>El. pašto adresas</label>
-
-                            <input
-                                type="email"
-                                name="email"
-                                class="mail-input"
-                                required
-                            >
+                            </a>
 
                         </div>
+                    </td>
 
-                        <div class="mail-field">
+                </tr>
+                <tr
+                    id="mail-row-{{ $invoice->id }}"
+                    class="mail-row"
+                    style="display:none;"
+                >
 
-                            <label>Papildoma informacija</label>
+                    <td colspan="6">
 
-                            <textarea
-                                name="message"
-                                class="mail-textarea"
-                            ></textarea>
+                        <form
+                            method="POST"
+                            action="/invoice-send/{{ $invoice->id }}"
+                            class="mail-form"
+                        >
 
-                        </div>
+                            @csrf
 
-                        <button type="submit" class="generate-btn">
-                            Siųsti
-                        </button>
+                            <div class="mail-field">
 
-                    </form>
+                                <label>El. pašto adresas</label>
 
-                </td>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    class="mail-input"
+                                    required
+                                >
 
-            </tr>
+                            </div>
 
-            @endforeach
+                            <div class="mail-field">
 
-        </tbody>
+                                <label>Papildoma informacija</label>
 
-    </table>
+                                <textarea
+                                    name="message"
+                                    class="mail-textarea"
+                                ></textarea>
 
-</div>
+                            </div>
+
+                            <button type="submit" class="generate-btn">
+                                Siųsti
+                            </button>
+
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                @endforeach
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </body>
 </html>

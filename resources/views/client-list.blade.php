@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klientų sąrašas</title>
-
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
@@ -79,6 +78,7 @@
         <li><a href="/product-list">Prekių sąrašas</a></li>
         <li><a href="/new-invoice">Nauja sąskaita</a></li>
         <li><a href="/invoice-list">Sąskaitų sąrašas</a></li>
+        <li><a href="/invoice-summary">Sąskaitų suvestinė</a></li>
     </ul>
 
 </div>
@@ -207,9 +207,7 @@
                         </button>
 
                     </form>
-
                 </td>
-
             </tr>
 
             @endforeach

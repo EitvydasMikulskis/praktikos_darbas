@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Prekių sąrašas</title>
-
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
@@ -22,6 +21,7 @@
         <li><a href="/product-list">Prekių sąrašas</a></li>
         <li><a href="/new-invoice">Nauja sąskaita</a></li>
         <li><a href="/invoice-list">Sąskaitų sąrašas</a></li>
+        <li><a href="/invoice-summary">Sąskaitų suvestinė</a></li>
     </ul>
 
 </div>
@@ -149,54 +149,39 @@
 function enableEdit(button)
 {
     let row = button.closest('tr');
-
     let inputs = row.querySelectorAll('.edit-input');
-
+    
     inputs.forEach(input => {
-
         input.dataset.original = input.value;
-
         input.removeAttribute('readonly');
-
         input.style.background = '#fff';
-
         input.style.border = '2px solid #3498db';
 
     });
 
     let saveButton = row.querySelector('.save-floating-btn');
-
     let cancelButton = row.querySelector('.cancel-floating-btn');
-
     saveButton.classList.add('active');
-
     cancelButton.classList.add('active');
 }
 
 function cancelEdit(button)
 {
     let row = button.closest('tr');
-
     let inputs = row.querySelectorAll('.edit-input');
 
     inputs.forEach(input => {
 
         input.value = input.dataset.original;
-
         input.setAttribute('readonly', true);
-
         input.style.background = 'transparent';
-
         input.style.border = 'none';
 
     });
 
     let saveButton = row.querySelector('.save-floating-btn');
-
     let cancelButton = row.querySelector('.cancel-floating-btn');
-
     saveButton.classList.remove('active');
-
     cancelButton.classList.remove('active');
 }
 

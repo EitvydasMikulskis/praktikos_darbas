@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Klientų sąrašas</title>
-
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
@@ -21,6 +20,7 @@
         <li><a href="/product-list">Prekių sąrašas</a></li>
         <li><a href="/new-invoice">Nauja sąskaita</a></li>
         <li><a href="/invoice-list">Sąskaitų sąrašas</a></li>
+        <li><a href="/invoice-summary">Sąskaitų suvestinė</a></li>
     </ul>
 </div>
 
@@ -77,73 +77,70 @@
 
         <div class="products-scroll-container">
 
-    <div class="invoice-products">
+            <div class="invoice-products">
 
-            @foreach($products as $product)
+                    @foreach($products as $product)
 
-            <div class="product-card">
+                    <div class="product-card">
 
-                <div class="product-left">
+                        <div class="product-left">
 
-                    <label class="product-checkbox">
+                            <label class="product-checkbox">
 
-                        <input
-                            type="checkbox"
-                            name="products[]"
-                            value="{{ $product->id }}"
-                        >
+                                <input
+                                    type="checkbox"
+                                    name="products[]"
+                                    value="{{ $product->id }}"
+                                >
 
-                        <div>
+                                <div>
 
-                            <div class="product-name">
-                                {{ $product->product_name }}
-                            </div>
+                                    <div class="product-name">
+                                        {{ $product->product_name }}
+                                    </div>
 
-                            <div class="product-price">
-                                {{ $product->unit_price }} €
-                            </div>
+                                    <div class="product-price">
+                                        {{ $product->unit_price }} €
+                                    </div>
+
+                                </div>
+
+                            </label>
 
                         </div>
 
-                    </label>
+                            <div class="product-right">
 
-                </div>
+                                <input
+                                    type="number"
+                                    name="quantities[{{ $product->id }}]"
+                                    class="quantity-input"
+                                    min="1"
+                                    value="1"
+                                >
 
-                    <div class="product-right">
+                                <input
+                                    type="number"
+                                    name="vat[{{ $product->id }}]"
+                                    class="vat-input"
+                                    min="0"
+                                    step="1"
+                                    value="21"
+                                >
 
-                        <input
-                            type="number"
-                            name="quantities[{{ $product->id }}]"
-                            class="quantity-input"
-                            min="1"
-                            value="1"
-                        >
-
-                        <input
-                            type="number"
-                            name="vat[{{ $product->id }}]"
-                            class="vat-input"
-                            min="0"
-                            step="1"
-                            value="21"
-                        >
-
+                            </div>
                     </div>
 
+                    @endforeach
+
             </div>
-
-            @endforeach
-
         </div>
-
-    </div>
 
         <button type="submit" class="generate-btn">
             Generuoti sąskaitą
         </button>
 
     </form>
-
 </div>
 
 </body>
