@@ -76,17 +76,13 @@
         </h2>
 
         <div class="products-scroll-container">
-
             <div class="invoice-products">
 
                     @foreach($products as $product)
 
                     <div class="product-card">
-
                         <div class="product-left">
-
                             <label class="product-checkbox">
-
                                 <input
                                     type="checkbox"
                                     name="products[]"
@@ -102,15 +98,11 @@
                                     <div class="product-price">
                                         {{ $product->unit_price }} €
                                     </div>
-
                                 </div>
-
                             </label>
-
                         </div>
-
                             <div class="product-right">
-
+                                
                                 <input
                                     type="number"
                                     name="quantities[{{ $product->id }}]"

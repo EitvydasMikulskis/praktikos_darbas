@@ -11,54 +11,38 @@
     function enableEdit(button)
     {
         let row = button.closest('tr');
-
         let inputs = row.querySelectorAll('.edit-input');
 
         inputs.forEach(input => {
-
             input.dataset.original = input.value;
-
             input.removeAttribute('readonly');
-
             input.style.background = '#fff';
-
             input.style.border = '2px solid #3498db';
-
         });
 
         let saveButton = row.querySelector('.save-floating-btn');
-
         let cancelButton = row.querySelector('.cancel-floating-btn');
 
         saveButton.classList.add('active');
-
         cancelButton.classList.add('active');
     }
 
     function cancelEdit(button)
     {
         let row = button.closest('tr');
-
         let inputs = row.querySelectorAll('.edit-input');
 
         inputs.forEach(input => {
-
             input.value = input.dataset.original;
-
             input.setAttribute('readonly', true);
-
             input.style.background = 'transparent';
-
             input.style.border = 'none';
-
         });
 
         let saveButton = row.querySelector('.save-floating-btn');
-
         let cancelButton = row.querySelector('.cancel-floating-btn');
 
         saveButton.classList.remove('active');
-
         cancelButton.classList.remove('active');
     }
 </script>

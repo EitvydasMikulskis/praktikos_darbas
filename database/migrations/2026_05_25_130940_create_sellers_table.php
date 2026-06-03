@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sellers', function (Blueprint $table) {
+            
             $table->id();
-
             $table->string('company_name');
             $table->string('company_code');
             $table->string('address');
             $table->string('vat_code');
             $table->string('bank_account');
-
             $table->timestamps();
+
         });
     }
 

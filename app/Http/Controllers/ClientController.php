@@ -50,7 +50,7 @@ class ClientController extends Controller
     }
 
     public function update(Request $request, $id)
-{
+    {
     $client = Client::findOrFail($id);
 
     $client->update([
@@ -63,5 +63,5 @@ class ClientController extends Controller
 
     return redirect('/client-list')
         ->with('success', 'Klientas sėkmingai atnaujintas');
-}
+    }
 }
