@@ -287,19 +287,12 @@
             @endphp
 
             <tr>
-
                 <td>{{ $index + 1 }}</td>
-
                 <td>{{ $product->product_name }}</td>
-
                 <td>{{ $item->quantity }} {{ $product->measurement_unit }}</td>
-
                 <td>{{ number_format($item->price, 2) }} €</td>
-
                 <td>{{ $item->vat_percent }}%</td>
-
                 <td>{{ number_format($item->total * (1 + $item->vat_percent / 100), 2) }} €</td>
-
             </tr>
 
             @endforeach

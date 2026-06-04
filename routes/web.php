@@ -5,8 +5,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\InvoiceController;
 
-Route::get('/', function () {return view('welcome');});
-
+Route::get('/', function () {return view('home');});
 Route::get('/home', function () {return view('home');});
 
 Route::get('/create-client', function () {return view('create-client');});

@@ -78,13 +78,9 @@
                 <tr>
 
                     <td>{{ $invoice->id }}</td>
-
                     <td>{{ $invoice->invoice_number }}</td>
-
                     <td>{{ $client->company_name }}</td>
-
                     <td>{{ number_format($invoice->total_with_vat, 2) }} €</td>
-
                     <td>{{ $invoice->created_at->format('Y-m-d') }}</td>
 
                     <td class="invoice-actions-column">
